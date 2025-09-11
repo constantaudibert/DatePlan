@@ -122,33 +122,32 @@
       <input type="radio" id="no" name="interest" value="no">
       <label for="no" style="display: inline;">Non</label>
     </div>
-    <form id="dateForm">
-      <label for="date">Quand ?</label>
-      <input type="date" id="date" name="date" required>
+    <form id="dateForm" action="https://formspree.io/f/mwpnzenj" method="POST">
+  <label for="date">Quand ?</label>
+  <input type="date" id="date" name="date" required>
 
-      <label for="time">Quelle heure ?</label>
-      <input type="time" id="time" name="time" required>
+  <label for="time">Quelle heure ?</label>
+  <input type="time" id="time" name="time" required>
 
-      <label>Ce qu'on pourrait faire :</label>
-      <div class="checkbox-group">
-        <input type="checkbox" id="resto" name="activity" value="resto">
-        <label for="resto" style="display: inline;">Resto</label><br>
-        <input type="checkbox" id="promenade" name="activity" value="promenade">
-        <label for="promenade" style="display: inline;">Sortie à vélo</label><br>
-        <input type="checkbox" id="cinema" name="activity" value="cinema">
-        <label for="cinema" style="display: inline;">Cinéma</label><br>
-        <input type="checkbox" id="exposition" name="activity" value="exposition">
-        <label for="exposition" style="display: inline;">Balade parc</label><br>
-        <input type="checkbox" id="activite_sportive" name="activity" value="activite_sportive">
-        <label for="activite_sportive" style="display: inline;">Séance muscu</label>
-        <br>
-        <br>
-        <label for="notes">Idées ou suggestions :</label>
-        <textarea id="notes" name="notes" rows="4"></textarea>
-      </div>
+  <label>Ce qu'on pourrait faire :</label>
+  <div class="checkbox-group">
+    <input type="checkbox" id="resto" name="activity" value="resto">
+    <label for="resto" style="display: inline;">Resto</label><br>
+    <input type="checkbox" id="promenade" name="activity" value="promenade">
+    <label for="promenade" style="display: inline;">Sortie à vélo</label><br>
+    <input type="checkbox" id="cinema" name="activity" value="cinema">
+    <label for="cinema" style="display: inline;">Cinéma</label><br>
+    <input type="checkbox" id="exposition" name="activity" value="exposition">
+    <label for="exposition" style="display: inline;">Balade parc</label><br>
+    <input type="checkbox" id="activite_sportive" name="activity" value="activite_sportive">
+    <label for="activite_sportive" style="display: inline;">Séance muscu</label>
+  </div>
+  <br>
+  <label for="notes">Idées ou suggestions :</label>
+  <textarea id="notes" name="notes" rows="4"></textarea>
 
-      <button type="submit">Soumettre</button>
-    </form>
+  <button type="submit">Soumettre</button>
+</form>
     <div class="confirmation" id="confirmation">
       Bien reçu ! Détails : <span id="summary"></span>
     </div>
@@ -182,7 +181,7 @@
     });
 
     // Gérer la soumission du formulaire
-    document.getElementById('dateForm').addEventListener('submit', function(event) {
+   /* document.getElementById('dateForm').addEventListener('submit', function(event) {
       event.preventDefault();
 
       const date = document.getElementById('date').value;
@@ -214,7 +213,7 @@
       document.getElementById('confirmation').style.display = 'block';
       document.getElementById('noMessage').style.display = 'none';
       document.getElementById('dateForm').reset();
-    });
+    });*/
   </script>
 </body>
 </html>
