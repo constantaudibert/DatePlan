@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulaire Date</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       background-color: #f4f4f4;
       color: #333;
       display: flex;
@@ -15,6 +16,8 @@
       min-height: 100vh;
       margin: 0;
       padding: 20px;
+      position: relative; /* Pour le positionnement des images */
+      overflow-x: hidden; /* Évite le défilement horizontal */
     }
 
     .container {
@@ -25,18 +28,21 @@
       max-width: 500px;
       width: 100%;
       text-align: center;
+      position: relative; /* Contexte pour les enfants */
+      z-index: 1; /* Au-dessus des images */
     }
 
     h1 {
-      font-size: 24px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
       margin-bottom: 20px;
-      color: #2c3e50;
+      color: #333;
     }
 
     label {
       display: block;
       margin-bottom: 8px;
-      font-weight: bold;
+      font-weight: 700; /* Gras léger */
     }
 
     input[type="text"],
@@ -48,6 +54,7 @@
       margin-bottom: 15px;
       border: 1px solid #ccc;
       border-radius: 4px;
+      font-family: 'Montserrat', sans-serif;
       font-size: 16px;
       box-sizing: border-box;
     }
@@ -63,19 +70,20 @@
     }
 
     button {
-      background-color: #2c3e50;
+      background-color: #333;
       color: #fff;
       padding: 12px 20px;
       border: none;
       border-radius: 4px;
       cursor: pointer;
       width: 100%;
+      font-family: 'Montserrat', sans-serif;
       font-size: 16px;
       transition: background-color 0.3s;
     }
 
     button:hover {
-      background-color: #34495e;
+      background-color:#333;
     }
 
     .confirmation {
@@ -85,6 +93,7 @@
       background-color: #e8f5e9;
       border-radius: 4px;
       text-align: center;
+      font-family: 'Montserrat', sans-serif;
     }
 
     .no-message {
@@ -95,6 +104,7 @@
       border-radius: 4px;
       text-align: center;
       font-style: italic;
+      font-family: 'Montserrat', sans-serif;
     }
 
     #dateForm {
@@ -108,9 +118,33 @@
       display: none;
     }
 
+
     iframe {
       z-index: 1;
       border-radius: 12px;
+    }
+
+    /* Images de fleurs */
+    .flower-image.left {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 30%;
+      height: 100%;
+      background: url('flower left.png') no-repeat left center;
+      background-size: cover;
+      z-index: 0;
+    }
+
+    .flower-image.right {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 30%;
+      height: 100%;
+      background: url('flower right.png') no-repeat right center;
+      background-size: cover;
+      z-index: 0;
     }
 
     @media (max-width: 600px) {
@@ -119,27 +153,32 @@
       }
 
       h1 {
-        font-size: 20px;
+        font-size: 24px;
       }
 
-      .vinyl {
-        width: 150px;
-        height: 150px;
-      }
 
       iframe {
         width: 100%;
         height: 250px;
       }
+
+      /* Sur mobile, masque les images ou les réduit */
+      .flower-image.left,
+      .flower-image.right {
+        width: 15%; /* Réduit la taille */
+        opacity: 0.7; /* Effet léger */
+      }
     }
   </style>
 </head>
 <body>
+  <div class="flower-image left"></div>
+  <div class="flower-image right"></div>
   <div class="container">
     <h1>Salut Iman !</h1>
     <div class="music-player" id="musicPlayer">
       <div class="vinyl"></div>
-      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3xdKv659byyZjtr1NZjC5s?utm_source=generator" width="100%" height="352" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <iframe src="https://open.spotify.com/embed/track/3xdKv659byyZjtr1NZjC5s" width="100%" height="352" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
     </div>
     <div class="radio-group">
       <label>Toujours partante pour un date ?</label>
@@ -178,7 +217,7 @@
       Bien reçu ! Détails : <span id="summary"></span>
     </div>
     <div class="no-message" id="noMessage">
-      Dac, au moins j'aurai révisé les formulaires HTML et la récupération de données avec JS !
+      Dac, au moins j'aurai révisé les formulaires HTML et la prog Javascript !
     </div>
   </div>
 
@@ -209,7 +248,7 @@
       });
     });
 
-    // Gérer la soumission du formulaire (facultatif, déjà géré par Formspree)
+    // Gérer la soumission du formulaire
     /*document.getElementById('dateForm').addEventListener('submit', function(event) {
       event.preventDefault();
 
@@ -243,5 +282,6 @@
       document.getElementById('dateForm').reset();
     });*/
   </script>
+  <!-- Signé avec amour par ta princesse -->
 </body>
 </html>
