@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulaire Date</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .radio-group,
+    .checkbox-group {
+      margin-bottom: 15px;
+    }
+
+    button {
+      background-color: #2c3e50;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #34495e;
+    }
+
+    .confirmation {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #e8f5e9;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .no-message {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #fff3cd;
+      border-radius: 4px;
+      text-align: center;
+      font-style: italic;
+    }
+
+    #dateForm {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Salut Iman !</h1>
+    <div class="radio-group">
+      <label>Toujours partante pour un date ?</label>
+      <input type="radio" id="yes" name="interest" value="yes">
+      <label for="yes" style="display: inline;">Oui</label>
+      <input type="radio" id="no" name="interest" value="no">
+      <label for="no" style="display: inline;">Non</label>
+    </div>
+    <form id="dateForm">
+      <label for="date">Quand ?</label>
+      <input type="date" id="date" name="date" required>
+
+      <label for="time">Quelle heure ?</label>
+      <input type="time" id="time" name="time" required>
+
+      <label>Ce qu'on pourrait faire :</label>
+      <div class="checkbox-group">
+        <input type="checkbox" id="resto" name="activity" value="resto">
+        <label for="resto" style="display: inline;">Resto</label><br>
+        <input type="checkbox" id="promenade" name="activity" value="promenade">
+        <label for="promenade" style="display: inline;">Sortie à vélo</label><br>
+        <input type="checkbox" id="cinema" name="activity" value="cinema">
+        <label for="cinema" style="display: inline;">Cinéma</label><br>
+        <input type="checkbox" id="exposition" name="activity" value="exposition">
+        <label for="exposition" style="display: inline;">Balade parc</label><br>
+        <input type="checkbox" id="activite_sportive" name="activity" value="activite_sportive">
+        <label for="activite_sportive" style="display: inline;">Séance muscu</label>
+        <br>
+        <br>
+        <label for="notes">Idées ou suggestions :</label>
+        <textarea id="notes" name="notes" rows="4"></textarea>
+      </div>
+
+      <button type="submit">Soumettre</button>
+    </form>
+    <div class="confirmation" id="confirmation">
+      Bien reçu ! Détails : <span id="summary"></span>
+    </div>
+    <div class="no-message" id="noMessage">
+      Dac, au moins j'aurai révisé les formulaires HTML et la récupération de données avec JS !
+    </div>
+  </div>
+
+  <script>
+    // Définir la date minimum à aujourd'hui pour empêcher la sélection de dates passées
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('date').setAttribute('min', today);
+
+    // Gérer l'affichage du formulaire ou du message selon la réponse
+    document.querySelectorAll('input[name="interest"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        const dateForm = document.getElementById('dateForm');
+        const noMessage = document.getElementById('noMessage');
+        const confirmation = document.getElementById('confirmation');
+
+        if (this.value === 'yes') {
+          dateForm.style.display = 'block';
+          noMessage.style.display = 'none';
+          confirmation.style.display = 'none';
+        } else if (this.value === 'no') {
+          dateForm.style.display = 'none';
+          noMessage.style.display = 'block';
+          confirmation.style.display = 'none';
+        }
+      });
+    });
+
+    // Gérer la soumission du formulaire
+    document.getElementById('dateForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+      const activities = Array.from(document.querySelectorAll('input[name="activity"]:checked')).map(el => {
+        // Mapper les valeurs des activités aux labels affichés
+        const labels = {
+          'resto': 'Resto',
+          'promenade': 'Sortie à vélo',
+          'cinema': 'Cinéma',
+          'exposition': 'Balade parc',
+          'activite_sportive': 'Séance muscu'
+        };
+        return labels[el.value] || el.value;
+      });
+      const notes = document.getElementById('notes').value;
+
+      let summary = `Proposition de Date le  ${date} à ${time}.`;
+      if (activities.length > 0) {
+        summary += ` Ce qu'on pourrait faire : ${activities.join(', ')}.`;
+      } else {
+        summary += ` Aucune activité sélectionnée.`;
+      }
+      if (notes) {
+        summary += ` Idées ou suggestions : ${notes}.`;
+      }
+
+      document.getElementById('summary').textContent = summary;
+      document.getElementById('confirmation').style.display = 'block';
+      document.getElementById('noMessage').style.display = 'none';
+      document.getElementById('dateForm').reset();
+    });
+  </script>
+</body>
+</html>
