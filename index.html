@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulaire Date</title>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T3FEEYXV3B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GG-T3FEEYXV3B');
+  </script>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <style>
     body {
@@ -83,7 +91,7 @@
     }
 
     button:hover {
-      background-color:#333;
+      background-color: #333;
     }
 
     .confirmation {
@@ -117,7 +125,6 @@
       margin-bottom: 20px;
       display: none;
     }
-
 
     iframe {
       z-index: 1;
@@ -155,7 +162,6 @@
       h1 {
         font-size: 24px;
       }
-
 
       iframe {
         width: 100%;
@@ -249,7 +255,7 @@
     });
 
     // Gérer la soumission du formulaire
-    /*document.getElementById('dateForm').addEventListener('submit', function(event) {
+    document.getElementById('dateForm').addEventListener('submit', function(event) {
       event.preventDefault();
 
       const date = document.getElementById('date').value;
@@ -280,7 +286,27 @@
       document.getElementById('confirmation').style.display = 'block';
       document.getElementById('noMessage').style.display = 'none';
       document.getElementById('dateForm').reset();
-    });*/
+
+      // Envoyer les données du formulaire à Formspree
+      const formData = new FormData(this);
+      fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('Formulaire soumis avec succès');
+        } else {
+          console.error('Échec de la soumission du formulaire :', response.statusText);
+        }
+      })
+      .catch(error => {
+        console.error('Erreur lors de la soumission du formulaire :', error);
+      });
+    });
   </script>
   <!-- Signé avec amour par ta princesse -->
 </body>
